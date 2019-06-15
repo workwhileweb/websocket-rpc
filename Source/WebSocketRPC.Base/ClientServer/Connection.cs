@@ -372,7 +372,7 @@ namespace WebSocketRPC
                 await Task.CompletedTask;
                 invokeOnReceive(msg);
                 Request request = Request.FromJson(msg);
-                if (request.IsEmpty)
+                if (request == null || request.IsEmpty)
                     return;
 
                 var binder = localBinders.Where(b => b.CanProcessRequest(request)).FirstOrDefault();

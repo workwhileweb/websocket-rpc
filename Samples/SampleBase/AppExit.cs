@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SampleBase
 {
-    static class AppExit
+    internal static class AppExit
     {
         public static void WaitFor(CancellationTokenSource cts, params Task[] tasks)
         {
@@ -19,38 +20,40 @@ namespace SampleBase
                 Console.WriteLine("------Press [Enter] to stop------");
                 Console.ReadLine();
 
-                cancelTasks(cts);
+                CancelTasks(cts);
             });
 
-            waitTasks(tasks);
+            WaitTasks(tasks);
         }
 
-        static void cancelTasks(CancellationTokenSource cts)
+        static void CancelTasks(CancellationTokenSource cts)
         {
             Console.WriteLine("\nWaiting for the tasks to complete...");
             cts.Cancel();
         }
 
-        static void waitTasks(Task[] tasks)
+        private static void WaitTasks(IEnumerable<Task> tasks)
         {
             try
             {
-                foreach (var t in tasks) //enables exception handling
-                    t.Wait();
+                foreach (var t in tasks) t.Wait();
             }
             catch (Exception ex)
             {
-                writeError(ex);
+                WriteError(ex);
             }
         }
 
-        static void writeError(Exception ex)
+        private static void WriteError(Exception ex)
         {
-            if (ex == null)
-                return;
-
-            if (ex is AggregateException)
-                ex = ex.InnerException;
+            switch (ex)
+            {
+                case null:
+                    return;
+                case AggregateException _:
+                    ex = ex.InnerException;
+                    break;
+            }
 
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Error: " + ex.Message);

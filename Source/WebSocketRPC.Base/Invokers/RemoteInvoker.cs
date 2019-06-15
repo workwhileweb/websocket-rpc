@@ -194,7 +194,7 @@ namespace WebSocketRPC
 
             var msg = new Request
             {
-                FunctionName = name,
+                FunctionName = name.Split('.').Last(),
                 CallId = Guid.NewGuid().ToString(),
                 Arguments = args.Select(a => a == null ? JValue.CreateNull() : JToken.FromObject(a, RPC.Serializer)).ToArray()
             };

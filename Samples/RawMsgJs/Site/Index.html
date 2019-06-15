@@ -44,7 +44,7 @@
             }
 
             //init API
-            var api = new MessagingAPI("ws://localhost:8001");
+            var api = new MessagingApi("ws://localhost:8001");
             api.onOtherMessage = onResponse;
             api.connect(onConnect, err => writeMsg(err, 'red'), msg => writeMsg(msg, 'green')); //onConnect, onError, onClose
         </script>

@@ -34,7 +34,7 @@ namespace ClientInfoJs
         static void Main(string[] args)
         {
             //generate js code (the API is empty)
-            File.WriteAllText($"./Site/{nameof(PlatformInfo)}.js", RPCJs.GenerateCaller<PlatformInfo>());
+            File.WriteAllText($"./../../Site/{nameof(PlatformInfo)}.js", RPCJs.GenerateCaller<PlatformInfo>());
           
             //start server and bind its local and remote API
             var cts = new CancellationTokenSource();
@@ -46,7 +46,7 @@ namespace ClientInfoJs
             });
 
             Console.Write("{0} ", nameof(ClientInfoJs));
-            Process.Start(new ProcessStartInfo(Path.GetFullPath("./Site/Index.html")) { UseShellExecute= true });
+            Process.Start(new ProcessStartInfo(Path.GetFullPath("./../../Site/Index.html")) { UseShellExecute= true });
             AppExit.WaitFor(cts, t);
         }
     }

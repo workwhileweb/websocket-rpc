@@ -5,8 +5,10 @@
     </head>
 
     <body>
+		<h1 id = "header"></h1>
+		
         <p id="msg"></p>
-
+		
         <p id="progress"></p>
         <p id="result"></p>
 
@@ -21,12 +23,18 @@
             }
 
             //init API
-            var api = new TaskAPI("ws://localhost:8001");
+            var api = new TaskApi("ws://localhost:8001");
 
             //implement the interface
             api.writeProgress = p =>
             {
                 document.getElementById("progress").innerHTML = "Completed: " + p * 100 + "%";
+            }
+			
+			//implement the interface
+            api.writeHeader = p =>
+            {
+                document.getElementById("header").innerHTML = p;
             }
 			
             async function execAPI(api)

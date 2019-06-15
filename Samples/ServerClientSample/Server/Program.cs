@@ -41,6 +41,7 @@ namespace TestServer
                 c.Bind<TaskAPI, IProgressAPI>(new TaskAPI());
 
                 c.OnOpen  += () => Task.Run((Action)writeClientCount);
+                
                 c.OnClose += (s, d) => Task.Run((Action)writeClientCount);
             });
 
@@ -51,6 +52,7 @@ namespace TestServer
         static void writeClientCount()
         {
             var cc = RPC.For<IProgressAPI>().Count();
+            
             Console.WriteLine("Client count: " + cc);
         }
     }

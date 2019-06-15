@@ -8,9 +8,10 @@ using WebSocketRPC;
 
 namespace RawMsgJs
 {
-    //Empty class (would contains methods if RPC was used).
-    class MessagingAPI
-    { }
+    /// <summary>
+    /// Empty class (would contains methods if RPC was used).
+    /// </summary>
+    internal class MessagingApi { }
 
     class Program
     {
@@ -22,7 +23,7 @@ namespace RawMsgJs
             Connection.MaxMessageSize = Connection.Encoding.GetMaxByteCount(40);
 
             //generate js code
-            File.WriteAllText($"./Site/{nameof(MessagingAPI)}.js", RPCJs.GenerateCaller<MessagingAPI>());
+            File.WriteAllText($"./../../Site/{nameof(MessagingApi)}.js", RPCJs.GenerateCaller<MessagingApi>());
 
             //start server
             var cts = new CancellationTokenSource();
@@ -47,7 +48,7 @@ namespace RawMsgJs
             });
 
             Console.Write("{0} ", nameof(RawMsgJs));
-            Process.Start(new ProcessStartInfo(Path.GetFullPath("./Site/Index.html")) { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo(Path.GetFullPath("./../../Site/Index.html")) { UseShellExecute = true });
             AppExit.WaitFor(cts, t);
         }
     }
